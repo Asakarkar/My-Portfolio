@@ -5,11 +5,11 @@ import { ArrowLeft, Download, ExternalLink } from 'lucide-react';
 import Navbar from '../components/Navbar';
 
 const SKILLS = {
+  Languages: ['C++', 'Java', 'JavaScript', 'TypeScript', 'Python'],
   Frontend: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML/CSS'],
-  Backend: ['Node.js', 'Express', 'REST APIs', 'GraphQL'],
-  Database: ['MongoDB', 'PostgreSQL', 'Redis'],
-  Languages: ['JavaScript', 'TypeScript', 'Python', 'C++'],
-  Tools: ['Git', 'Docker', 'AWS', 'Vercel', 'Linux'],
+  Backend: ['Node.js', 'Express', 'REST APIs'],
+  Database: ['MongoDB', 'MySql'],
+  Tools: ['Git', 'Docker', 'AWS', 'Vercel'],
 };
 
 const EXPERIENCE = [
