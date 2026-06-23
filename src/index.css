@@ -1,0 +1,331 @@
+/* === ADITYA.OS GLOBAL DESIGN SYSTEM === */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* === CORE COLORS === */
+    --os-bg: #000000;
+    --os-surface: #080808;
+    --os-primary: #FFFFFF;
+    --os-secondary: #888888;
+    --os-border: #1F1F1F;
+    --os-muted: #444444;
+    --os-dim: #222222;
+
+    /* === ACCENT COLORS (Minimal usage) === */
+    --os-cyan: #00F5FF;
+    --os-purple: #8A2BE2;
+
+    /* === FONTS === */
+    --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* === SPACING === */
+    --nav-height: 60px;
+    --section-pad-x: clamp(1rem, 3vw, 3rem);
+    --section-pad-y: clamp(3rem, 8vh, 8rem);
+  }
+
+  /* === RESET === */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    background: var(--os-bg);
+    color: var(--os-primary);
+    font-family: var(--font-mono);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: auto; /* GSAP controls scroll */
+    overflow-x: hidden;
+  }
+
+  body {
+    background: var(--os-bg);
+    color: var(--os-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* === SELECTION === */
+  ::selection {
+    background: var(--os-cyan);
+    color: var(--os-bg);
+  }
+
+  /* === SCROLLBAR (Desktop only) === */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--os-bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--os-border);
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--os-muted);
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--os-border) var(--os-bg);
+  }
+
+  /* === LINKS === */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* === BUTTON RESET === */
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+  }
+
+  /* === IMAGE RESET === */
+  img {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+@layer components {
+  /* === CRT SCANLINE OVERLAY === */
+  .crt-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+    opacity: 0.5;
+  }
+
+  /* === GRID BACKGROUND === */
+  .grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(255,255,255,0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 120px 120px;
+}
+
+  .grid-bg::after {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,255,255,0.04) 0%,
+      transparent 70%
+    );
+}
+
+  /* === FLOATING CROSSHAIRS === */
+  .crosshair {
+    position: fixed;
+    color: var(--os-dim);
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 1;
+    animation: crosshairFloat 20s ease-in-out infinite;
+  }
+
+  @keyframes crosshairFloat {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(10px, -15px); }
+    50% { transform: translate(-5px, 10px); }
+    75% { transform: translate(15px, 5px); }
+  }
+
+  /* === TERMINAL CURSOR BLINK === */
+  .cursor-blink {
+    animation: cursorBlink 1s step-end infinite;
+  }
+
+  @keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* === SECTION LABEL STYLE === */
+  .section-label {
+    font-size: 18px;
+    font-style: italic;
+    color: var(--os-secondary);
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+  }
+
+  /* === MAGNETIC BUTTON === */
+  .magnetic-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--os-border);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .magnetic-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--os-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
+  }
+
+  .magnetic-btn:hover {
+    color: var(--os-bg);
+    border-color: var(--os-primary);
+  }
+
+  .magnetic-btn:hover::before {
+    transform: scaleX(1);
+  }
+
+  /* === LINK WITH ARROW === */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 12px;
+    color: var(--os-secondary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--os-border);
+    transition: all 0.3s ease;
+  }
+
+  .link-arrow:hover {
+    color: var(--os-primary);
+    text-decoration-color: var(--os-primary);
+  }
+
+  /* === GRID NUMBER COORDINATES === */
+  .grid-num {
+    font-size: 10px;
+    font-style: italic;
+    color: var(--os-dim);
+    position: absolute;
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  /* === TEXT UTILITIES === */
+  .text-display {
+    font-size: clamp(3rem, 15vw, 20rem);
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+
+  .text-hero {
+    font-size: clamp(3rem, 18vw, 25rem);
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+  }
+
+  .text-section-title {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .text-body-mono {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--os-secondary);
+  }
+
+  /* === CUSTOM CURSOR STYLES === */
+  .cursor-hover {
+    width: 40px !important;
+    height: 40px !important;
+    margin-left: -20px !important;
+    margin-top: -20px !important;
+    background-color: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    border-radius: 50% !important;
+  }
+
+  /* === NOISE TEXTURE OVERLAY === */
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* === REDUCED MOTION === */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* === MOBILE HIDES === */
+  @media (max-width: 768px) {
+    .hide-mobile {
+      display: none !important;
+    }
+  }
+}
