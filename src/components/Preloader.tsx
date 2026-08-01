@@ -85,10 +85,11 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         `}
         style={{
           fontFamily:
-            '"Clash Display","Cabinet Grotesk","General Sans",sans-serif',
-          fontWeight: 600,
-          fontSize: 'clamp(4rem, 8vw, 8rem)',
-          letterSpacing: '-0.03em',
+          '"Clash Display","Cabinet Grotesk","General Sans",sans-serif',
+          fontWeight: 700,
+          fontSize: 'clamp(7rem, 14vw, 14rem)',
+          letterSpacing: '0.1em',
+          lineHeight: 0.85,
         }}
       >
         {WORDS[currentWord]}
