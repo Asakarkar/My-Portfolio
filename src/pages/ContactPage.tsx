@@ -34,37 +34,63 @@ export default function ContactPage() {
     return () => ctx.revert();
   }, []);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
+  const [formError, setFormError] = useState<string | null>(null);
 
-      setIsSubmitting(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError(null);
 
-      try {
-        await emailjs.send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-          {
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-          },
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-        );
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const message = formData.message.trim();
 
-        setIsSubmitted(true);
+    if (!name || !email || !message) {
+      setFormError('All fields are required.');
+      return;
+    }
 
-        setFormData({
-          name: '',
-          email: '',
-          message: '',
-        });
-      } catch (error) {
-        console.error(error);
-        alert('Failed to send message');
-      } finally {
-        setIsSubmitting(false);
-      }
-    };
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setFormError('Please enter a valid email address.');
+      return;
+    }
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setFormError('Contact service is temporarily unconfigured. Please use direct email below.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name,
+          email,
+          message,
+        },
+        publicKey
+      );
+
+      setIsSubmitted(true);
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+      });
+    } catch (error) {
+      console.error(error);
+      setFormError('Failed to send transmission. Please use direct email link.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div ref={pageRef} className="relative min-h-screen">
@@ -115,6 +141,11 @@ export default function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {formError && (
+                  <div className="p-3 border border-red-500/40 bg-red-500/10 text-red-400 text-xs tracking-wide">
+                    {formError}
+                  </div>
+                )}
                 <div>
                   <label className="block text-[10px] uppercase tracking-wider text-[#444] mb-2">
                     Name
@@ -122,6 +153,8 @@ export default function ContactPage() {
                   <input
                     type="text"
                     required
+                    maxLength={100}
+                    autoComplete="name"
                     value={formData.name}
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
@@ -138,6 +171,8 @@ export default function ContactPage() {
                   <input
                     type="email"
                     required
+                    maxLength={254}
+                    autoComplete="email"
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
@@ -153,6 +188,7 @@ export default function ContactPage() {
                   </label>
                   <textarea
                     required
+                    maxLength={3000}
                     rows={5}
                     value={formData.message}
                     onChange={(e) =>

@@ -53,7 +53,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-[#0A0A0A]"
+      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-[#0A0A0A] px-4 md:px-8"
     >
       {/* Grid Background */}
 
@@ -76,6 +76,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           text-center
           leading-none
           select-none
+          max-w-full
           animate-word-reveal
           ${
             currentWord === 3
@@ -87,9 +88,9 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           fontFamily:
           '"Clash Display","Cabinet Grotesk","General Sans",sans-serif',
           fontWeight: 700,
-          fontSize: 'clamp(7rem, 14vw, 14rem)',
-          letterSpacing: '0.1em',
-          lineHeight: 0.85,
+          fontSize: 'clamp(2.5rem, 11.5vw, 12rem)',
+          letterSpacing: 'clamp(0.02em, 0.5vw, 0.08em)',
+          lineHeight: 0.9,
         }}
       >
         {WORDS[currentWord]}

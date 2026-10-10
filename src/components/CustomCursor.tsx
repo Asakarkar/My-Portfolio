@@ -3,16 +3,16 @@ import { useEffect, useRef, useState, Fragment } from 'react';
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const trailRef = useRef<HTMLDivElement>(null);
-  const [isTouch, setIsTouch] = useState<boolean>(false);
+  const [isTouch] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  });
   const mousePos = useRef({ x: 0, y: 0 });
   const trailPos = useRef({ x: 0, y: 0 });
   const rafId = useRef<number | null>(null);
 
   useEffect(() => {
-    const isTouchDevice =
-      'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) {
-      setIsTouch(true);
+    if (isTouch) {
       return;
     }
 
@@ -59,7 +59,7 @@ export default function CustomCursor() {
         el.removeEventListener('mouseleave', handleMouseLeaveInteractive);
       });
     };
-  }, []);
+  }, [isTouch]);
 
   useEffect(() => {
     if (isTouch) return;

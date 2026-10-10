@@ -190,6 +190,7 @@ export default function DashboardSection() {
                 "
                 autoComplete="off"
                 spellCheck={false}
+                maxLength={200}
               />
 
               <span

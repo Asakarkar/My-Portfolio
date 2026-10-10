@@ -20,9 +20,12 @@ const EXPERIENCE = [
     description:
       'Building production-grade web applications from concept to deployment. Focusing on React ecosystems and Node.js backends.',
   },
+];
+
+const EDUCATION = [
   {
-    title: 'B.Tech CSE Student',
-    company: 'University',
+    degree: 'B.Tech in Computer Science and Engineering',
+    institution: 'University',
     period: '2024 — 2028 (Expected)',
     description:
       'Pursuing Computer Science and Engineering. Active in coding clubs, hackathons, and open-source contributions.',
@@ -116,10 +119,10 @@ export default function ResumePage() {
             </p>
           </section>
 
-          {/* Education */}
+          {/* Experience */}
           <section className="mb-12">
             <h2 className="text-xs font-bold uppercase tracking-wider text-[#444] mb-4 border-b border-[#1F1F1F] pb-2">
-              Education
+              Experience
             </h2>
             <div className="space-y-4">
               {EXPERIENCE.map((exp) => (
@@ -131,6 +134,27 @@ export default function ResumePage() {
                   <div className="text-xs text-[#888] mb-1">{exp.company}</div>
                   <p className="text-xs text-[#666] leading-relaxed">
                     {exp.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Education */}
+          <section className="mb-12">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-[#444] mb-4 border-b border-[#1F1F1F] pb-2">
+              Education
+            </h2>
+            <div className="space-y-4">
+              {EDUCATION.map((edu) => (
+                <div key={edu.degree}>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-1 mb-1">
+                    <h3 className="text-sm font-bold">{edu.degree}</h3>
+                    <span className="text-[10px] text-[#444]">{edu.period}</span>
+                  </div>
+                  <div className="text-xs text-[#888] mb-1">{edu.institution}</div>
+                  <p className="text-xs text-[#666] leading-relaxed">
+                    {edu.description}
                   </p>
                 </div>
               ))}

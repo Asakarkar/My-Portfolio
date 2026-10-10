@@ -19,7 +19,7 @@ const PROJECTS = [
     role: 'Solo — full stack',
     image: '/images/project-save-duffy.jpg',
     liveUrl: '#',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/Asakarkar/Save-Duffy',
   },
   {
     id: 'resqnet',
@@ -33,7 +33,7 @@ const PROJECTS = [
     role: 'Team of 3 — led frontend',
     image: '/images/project-resqnet.jpg',
     liveUrl: '#',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/Asakarkar/ResQNet/blob/main/README.md',
   },
   {
     id: 'ai-interview',
