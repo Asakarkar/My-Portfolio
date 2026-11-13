@@ -32,8 +32,8 @@ export const PROJECTS = [
     image: '/images/project-science-on-wheels.png',
     duration: 'July 2026 – Present',
     role: 'Full-stack Developer',
-    liveUrl: '#',
-    githubUrl: '#',
+    liveUrl: 'https://science-on-wheels.vercel.app/login',
+    githubUrl: 'https://github.com/Asakarkar/Science-on-Wheels',
   },
   {
     id: 'fox',
@@ -71,7 +71,7 @@ export const PROJECTS = [
     duration: 'December 2025 – Present',
     role: 'Full-stack Developer',
     liveUrl: '#',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/Asakarkar/Fox-2.0',
   },
   {
     id: 'cardiopulse',
@@ -110,7 +110,7 @@ export const PROJECTS = [
     duration: 'July 2026 – Present',
     role: 'ML & Full-stack Developer',
     liveUrl: '#',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/Asakarkar/CardioPulse',
   },
   {
     id: 'smart-college-event',
@@ -146,6 +146,6 @@ export const PROJECTS = [
     duration: 'September 2026',
     role: 'Java Backend Developer',
     liveUrl: '#',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/Asakarkar/Smart-College-Event-Managment-System',
   },
 ];
