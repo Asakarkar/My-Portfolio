@@ -4,93 +4,8 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
-const PROJECTS = [
-  {
-    id: 'save-duffy',
-    title: 'Save Duffy',
-    hook: 'Platform connecting animal rescuers with communities to save stray animals.',
-    problem: 'Stray animals lack a centralized rescue coordination system. Rescuers work in isolation, shelters are overwhelmed, and volunteers cannot find opportunities efficiently.',
-    solution: 'Built a full-stack platform connecting rescuers, shelters, and volunteers in real-time with a map-based interface, case tracking, and volunteer matching.',
-    architecture: 'React frontend with Node.js/Express API. MongoDB for flexible data storage. Socket.io for real-time notifications. Mapbox for location services.',
-    stack: ['React.js', 'Node.js', 'MongoDB', 'Socket.io', 'Mapbox'],
-    metrics: [
-      { label: 'Rescuers Connected', value: '500+' },
-      { label: 'Animals Helped', value: '1,200+' },
-      { label: 'Response Time', value: '-40%' },
-    ],
-    challenges: 'Real-time location tracking was draining mobile battery. Solved by implementing geofencing and batch location updates.',
-    learnings: 'Battery efficiency is a feature, not an afterthought. Always test location services on actual devices in the field.',
-    image: '/images/project-save-duffy.jpg',
-    duration: 'Built in 3 weeks',
-    role: 'Solo — full stack',
-    liveUrl: '#',
-    githubUrl: 'https://github.com/Asakarkar/Save-Duffy',
-  },
-  {
-    id: 'resqnet',
-    title: 'ResQNet',
-    hook: 'Real-time disaster relief platform connecting volunteers with NGOs.',
-    problem: 'Emergency response coordination is chaotic and slow. NGOs struggle to communicate needs, and volunteers cannot find where help is needed most.',
-    solution: 'Created a real-time map-based platform for disaster resource allocation with need posting, volunteer matching, and supply tracking.',
-    architecture: 'MERN stack with Redis for caching real-time data. Twilio for SMS alerts. Cloudinary for image uploads. JWT auth with role-based access.',
-    stack: ['React.js', 'Node.js', 'MongoDB', 'Redis', 'Twilio'],
-    metrics: [
-      { label: 'Response Time Reduction', value: '60%' },
-      { label: 'Volunteers Mobilized', value: '2,000+' },
-      { label: 'Supplies Tracked', value: '50K+' },
-    ],
-    challenges: 'Handling traffic spikes during actual emergencies. Implemented rate limiting and CDN caching to keep the platform responsive.',
-    learnings: 'Design for failure — your infrastructure will fail at the worst possible moment. Have fallback mechanisms for every critical path.',
-    image: '/images/project-resqnet.jpg',
-    duration: 'Built in 4 weeks',
-    role: 'Team of 3 — led frontend',
-    liveUrl: '#',
-    githubUrl: 'https://github.com/Asakarkar/ResQNet/blob/main/README.md',
-  },
-  {
-    id: 'ai-interview',
-    title: 'AI Interview Platform',
-    hook: 'AI-powered platform helping job seekers practice with real-time feedback.',
-    problem: 'Job seekers struggle to prepare for technical interviews effectively. Mock interviews are expensive and feedback is delayed.',
-    solution: 'Built an AI interviewer using GPT-4 that conducts realistic technical interviews and provides instant, actionable feedback on code, communication, and problem-solving.',
-    architecture: 'React with TypeScript frontend. Node.js backend with OpenAI API integration. WebRTC for video streaming. PostgreSQL for session storage.',
-    stack: ['React.js', 'TypeScript', 'Tailwind CSS', 'OpenAI API', 'WebRTC'],
-    metrics: [
-      { label: 'Practice Sessions', value: '10,000+' },
-      { label: 'User Satisfaction', value: '4.8/5' },
-      { label: 'Offer Rate', value: '65%' },
-    ],
-    challenges: 'AI responses were too generic initially. Fine-tuned prompts with few-shot examples from real interview transcripts to improve relevance.',
-    learnings: 'Prompt engineering is iterative. Start with 10 examples, measure, refine. The quality of your training examples directly determines output quality.',
-    image: '/images/project-ai-interview.jpg',
-    duration: 'Ongoing',
-    role: 'Solo — full stack',
-    liveUrl: '#',
-    githubUrl: '#',
-  },
-  {
-    id: 'quant-finance',
-    title: 'Quant Finance Simulator',
-    hook: 'Interactive quantitative finance simulator for learning algorithmic trading.',
-    problem: 'Finance concepts are abstract and hard to visualize. Students learn theory without understanding real-world market dynamics.',
-    solution: 'Created an interactive simulator with real-time market data visualization, backtesting engine, and paper trading environment.',
-    architecture: 'Python backend with pandas/numpy for calculations. React frontend with D3.js for visualizations. WebSocket for live data feeds. SQLite for local storage.',
-    stack: ['Python', 'React', 'D3.js', 'WebSocket', 'pandas'],
-    metrics: [
-      { label: 'Simulated Trades', value: '$1M+' },
-      { label: 'Strategies Tested', value: '150+' },
-      { label: 'Active Learners', value: '800+' },
-    ],
-    challenges: 'Real-time chart rendering was slow with large datasets. Implemented data decimation and canvas-based rendering for 60fps performance.',
-    learnings: 'Data visualization performance is about knowing what NOT to render. Aggressive downsampling beats fancy algorithms for perceived performance.',
-    image: '/images/project-quant-finance.jpg',
-    duration: 'Built in 2 weeks',
-    role: 'Solo — full stack',
-    liveUrl: '#',
-    githubUrl: '#',
-  },
-];
+import ProjectImage from '../components/ProjectImage';
+import { PROJECTS } from '../data/projects';
 
 export default function ProjectsPage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -164,11 +79,10 @@ export default function ProjectsPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
                 {/* Image */}
                 <div className="aspect-video bg-[#080808] border border-[#1F1F1F] overflow-hidden">
-                  <img
+                  <ProjectImage
                     src={project.image}
-                    alt={project.title}
+                    title={project.title}
                     className="w-full h-full object-cover"
-                    loading="lazy"
                   />
                 </div>
 
@@ -239,28 +153,34 @@ export default function ProjectsPage() {
                   </div>
 
                   {/* Links */}
-                  <div className="flex items-center gap-4">
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="magnetic-btn text-xs"
-                      data-cursor-hover
-                    >
-                      <ExternalLink size={12} />
-                      <span>Live Demo</span>
-                    </a>
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-xs text-[#888] hover:text-white transition-colors underline underline-offset-4 decoration-[#1F1F1F]"
-                      data-cursor-hover
-                    >
-                      <Github size={12} />
-                      <span>GitHub</span>
-                    </a>
-                  </div>
+                  {(project.liveUrl !== '#' || project.githubUrl !== '#') && (
+                    <div className="flex items-center gap-4">
+                      {project.liveUrl !== '#' && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="magnetic-btn text-xs"
+                          data-cursor-hover
+                        >
+                          <ExternalLink size={12} />
+                          <span>Live Demo</span>
+                        </a>
+                      )}
+                      {project.githubUrl !== '#' && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-xs text-[#888] hover:text-white transition-colors underline underline-offset-4 decoration-[#1F1F1F]"
+                          data-cursor-hover
+                        >
+                          <Github size={12} />
+                          <span>GitHub</span>
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
 

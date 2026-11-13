@@ -3,68 +3,11 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { PROJECTS } from '../data/projects';
+import ProjectImage from '../components/ProjectImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PROJECTS = [
-  {
-    id: 'save-duffy',
-    title: 'Save Duffy',
-    hook: 'Platform connecting animal rescuers with communities to save stray animals.',
-    problem: 'Stray animals lack a centralized rescue coordination system.',
-    solution: 'Built a full-stack platform connecting rescuers, shelters, and volunteers in real-time.',
-    stack: ['React.js', 'Node.js'],
-    metrics: 'Connected 500+ rescuers in beta',
-    duration: 'Built in 3 weeks',
-    role: 'Solo — full stack',
-    image: '/images/project-save-duffy.jpg',
-    liveUrl: '#',
-    githubUrl: 'https://github.com/Asakarkar/Save-Duffy',
-  },
-  {
-    id: 'resqnet',
-    title: 'ResQNet',
-    hook: 'Real-time disaster relief platform connecting volunteers with NGOs.',
-    problem: 'Emergency response coordination is chaotic and slow.',
-    solution: 'Created a real-time map-based platform for disaster resource allocation.',
-    stack: ['React.js', 'Node.js', 'MongoDB'],
-    metrics: 'Reduced response time by 60%',
-    duration: 'Built in 4 weeks',
-    role: 'Team of 3 — led frontend',
-    image: '/images/project-resqnet.jpg',
-    liveUrl: '#',
-    githubUrl: 'https://github.com/Asakarkar/ResQNet/blob/main/README.md',
-  },
-  {
-    id: 'ai-interview',
-    title: 'AI Interview Platform',
-    hook: 'AI-powered platform helping job seekers practice with real-time feedback.',
-    problem: 'Job seekers struggle to prepare for technical interviews effectively.',
-    solution: 'Built an AI interviewer that provides instant feedback on answers.',
-    stack: ['React.js', 'TypeScript', 'Tailwind CSS'],
-    metrics: '10,000+ practice sessions',
-    duration: 'Ongoing',
-    role: 'Solo — full stack',
-    image: '/images/project-ai-interview.jpg',
-    liveUrl: '#',
-    githubUrl: '#',
-  },
-  {
-    id: 'quant-finance',
-    title: 'Quant Finance Simulator',
-    hook: 'Interactive quantitative finance simulator for learning algorithmic trading.',
-    problem: 'Finance concepts are abstract and hard to visualize.',
-    solution: 'Created an interactive simulator with real-time market data visualization.',
-    stack: ['Python', 'React', 'D3.js'],
-    metrics: 'Simulated $1M+ in trades',
-    duration: 'Built in 2 weeks',
-    role: 'Solo — full stack',
-    image: '/images/project-quant-finance.jpg',
-    liveUrl: '#',
-    githubUrl: '#',
-  },
-];
- 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const featuredProjects = PROJECTS.slice(0, 3);
@@ -116,35 +59,40 @@ export default function ProjectsSection() {
           >
             {/* Image */}
             <div className="relative aspect-video overflow-hidden bg-[#080808]">
-              <img
+              <ProjectImage
                 src={project.image}
-                alt={project.title}
+                title={project.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
               />
               {/* Overlay on hover */}
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 bg-white text-black text-xs font-bold uppercase tracking-wider hover:bg-[#eee] transition-colors"
-                  data-cursor-hover
-                >
-                  <ExternalLink size={12} />
-                  Live Demo
-                </a>
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 border border-white text-white text-xs font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors"
-                  data-cursor-hover
-                >
-                  <Github size={12} />
-                  GitHub
-                </a>
-              </div>
+              {(project.liveUrl !== '#' || project.githubUrl !== '#') && (
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                  {project.liveUrl !== '#' && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-white text-black text-xs font-bold uppercase tracking-wider hover:bg-[#eee] transition-colors"
+                      data-cursor-hover
+                    >
+                      <ExternalLink size={12} />
+                      Live Demo
+                    </a>
+                  )}
+                  {project.githubUrl !== '#' && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 border border-white text-white text-xs font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors"
+                      data-cursor-hover
+                    >
+                      <Github size={12} />
+                      GitHub
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Content */}
@@ -167,7 +115,7 @@ export default function ProjectsSection() {
 
               {/* Metrics */}
               <div className="text-xs text-white mb-4 font-medium">
-                {project.metrics}
+                {project.metrics[0].value} {project.metrics[0].label}
               </div>
 
               {/* Meta info */}

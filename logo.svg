@@ -1,24 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512">
-  <!-- Circle Background -->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100"
+  width="512"
+  height="512"
+>
   <circle
     cx="50"
     cy="50"
-    r="48"
+    r="47"
     fill="#000000"
-    stroke="#ffffffff"
+    stroke="#FFFFFF"
     stroke-width="2"
   />
 
-  <!-- Large A -->
   <text
-    x="53%"
-    y="53%"
+    x="50"
+    y="51"
     text-anchor="middle"
-    dominant-baseline="middle"
-    font-family="JetBrains Mono, monospace"
-    font-size="72"
-    font-weight="800"
-    fill="#ffffffff">
-    A
-  </text>
+    dominant-baseline="central"
+    font-family="'Space Grotesk', sans-serif"
+    font-size="70"
+    font-weight="700"
+    fill="#FFFFFF"
+  >A</text>
 </svg>

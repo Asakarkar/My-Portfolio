@@ -23,7 +23,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
         return prev + 1;
       });
-    }, 1200);
+    }, 1000);
 
     return () => clearInterval(timer);
   }, []);

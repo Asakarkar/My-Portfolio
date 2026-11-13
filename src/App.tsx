@@ -9,13 +9,23 @@ import Preloader from './components/Preloader';
 import CustomCursor from './components/CustomCursor';
 import GridBackground from './components/GridBackground';
 
+const PRELOADER_SESSION_KEY = 'portfolio-preloader-shown';
+
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(
+    () => sessionStorage.getItem(PRELOADER_SESSION_KEY) !== 'true'
+  );
   const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (isLoading) {
+      sessionStorage.setItem(PRELOADER_SESSION_KEY, 'true');
+    }
+  }, [isLoading]);
 
   return (
     <>

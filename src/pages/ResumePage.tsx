@@ -1,52 +1,118 @@
+
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Download, ExternalLink } from 'lucide-react';
+import {
+  ArrowLeft,
+  Download,
+  ExternalLink,
+  Github,
+  Linkedin,
+  Mail,
+  Globe,
+} from 'lucide-react';
+
 import Navbar from '../components/Navbar';
+import { PROJECTS } from '../data/projects';
 
 const SKILLS = {
-  Languages: ['C++', 'Java', 'JavaScript', 'TypeScript', 'Python'],
-  Frontend: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML/CSS'],
-  Backend: ['Node.js', 'Express', 'REST APIs'],
-  Database: ['MongoDB', 'MySql'],
-  Tools: ['Git', 'Docker', 'AWS', 'Vercel'],
+  Languages: [
+    'Java',
+    'C++',
+    'Python',
+    'JavaScript',
+    'TypeScript',
+    'SQL',
+    'HTML5',
+    'CSS3',
+  ],
+  Frontend: [
+    'React.js',
+    'React Query',
+    'React Hook Form',
+    'Tailwind CSS',
+    'Vite',
+    'Responsive Design',
+    'Three.js',
+  ],
+  Backend: [
+    'Node.js',
+    'Express.js',
+    'FastAPI',
+    'REST APIs',
+    'JWT Authentication',
+    'OAuth 2.0',
+    'RBAC',
+    'Zod',
+    'Argon2id',
+    'Pydantic',
+  ],
+  Databases: [
+    'PostgreSQL',
+    'MongoDB',
+    'MySQL',
+    'SQLite',
+    'Prisma ORM',
+    'Mongoose',
+  ],
+  'Core CS': [
+    'Data Structures & Algorithms',
+    'OOP',
+    'Operating Systems',
+    'DBMS',
+    'Computer Networks',
+    'Design Patterns',
+    'System Design',
+  ],
+  'Tools & ML': [
+    'Git',
+    'GitHub',
+    'Docker',
+    'Linux',
+    'Postman',
+    'Maven',
+    'JUnit 5',
+    'scikit-learn',
+    'Pandas',
+    'NumPy',
+    'PCA',
+    'SVM',
+    'Joblib',
+  ],
 };
-
-const EXPERIENCE = [
-  {
-    title: 'Full Stack Developer',
-    company: 'Self-Initiated Projects',
-    period: '2024 — Present',
-    description:
-      'Building production-grade web applications from concept to deployment. Focusing on React ecosystems and Node.js backends.',
-  },
-];
 
 const EDUCATION = [
   {
-    degree: 'B.Tech in Computer Science and Engineering',
-    institution: 'University',
-    period: '2024 — 2028 (Expected)',
+    degree: 'Bachelor of Technology',
+    field: 'Computer Science & Technology',
+    institution: 'Ramdeobaba University',
+    location: 'Nagpur, Maharashtra',
+    period: 'July 2024 — April 2028',
     description:
-      'Pursuing Computer Science and Engineering. Active in coding clubs, hackathons, and open-source contributions.',
+      'Undergraduate student focused on software engineering, full-stack development, data structures, algorithms, database systems, and machine learning.',
   },
 ];
 
-const PROJECTS = [
+const HIGHLIGHTS = [
   {
-    name: 'Save Duffy',
-    tech: 'React, Node.js, MongoDB',
-    description: 'Animal rescue platform connecting rescuers with communities.',
+    value: '31',
+    label: 'UI Modules',
+    description: 'Science on Wheels',
   },
   {
-    name: 'ResQNet',
-    tech: 'React, Node.js, MongoDB, Redis',
-    description: 'Real-time disaster relief coordination platform.',
+    value: '25+',
+    label: 'API Endpoints',
+    description: 'Fox SaaS Platform',
   },
   {
-    name: 'AI Interview Platform',
-    tech: 'React, TypeScript, OpenAI API',
-    description: 'AI-powered interview practice with real-time feedback.',
+    value: '80.22%',
+    label: 'Test Accuracy',
+    description: 'CardioPulse ML',
+  },
+  {
+    value: '13',
+    label: 'Design Patterns',
+    description: 'Smart Event System',
   },
 ];
 
@@ -55,128 +121,289 @@ export default function ResumePage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        '.page-header',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.2 }
+        '.resume-animate',
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: 'power3.out',
+          delay: 0.15,
+        }
       );
     }, pageRef);
+
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={pageRef} className="relative min-h-screen">
+    <div ref={pageRef} className="relative min-h-screen bg-[#0A0A0A] text-white">
       <div className="crt-overlay" />
       <Navbar />
 
       <main className="relative z-10 pt-[60px]">
-        {/* Header */}
-        <div className="page-header px-6 md:px-12 py-12 border-b border-[#1F1F1F]">
+
+        {/* HEADER */}
+        <header className="resume-animate border-b border-[#1F1F1F] px-6 py-12 md:px-12 lg:px-20">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-xs text-[#888] hover:text-white transition-colors mb-8"
-            data-cursor-hover
+            className="mb-10 inline-flex items-center gap-2 text-xs text-[#777] transition-colors hover:text-white"
           >
             <ArrowLeft size={14} />
             Back to home
           </Link>
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div className="flex flex-col justify-between gap-7 md:flex-row md:items-end">
             <div>
-              <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-2">
-                RESUME
+              <span className="mb-4 block text-[10px] font-semibold uppercase tracking-[0.3em] text-[#FF4D00]">
+                SOFTWARE ENGINEERING / 2026
+              </span>
+
+              <h1 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-8xl">
+                MY <span className="text-[#FF4D00]">RESUME.</span>
               </h1>
-              <p className="text-sm text-[#888]">
-                Aditya Sakarkar — Full Stack Developer / Software Engineer
+
+              <p className="mt-4 text-sm text-[#888]">
+                Aditya Sakarkar — Software Engineer / Full Stack Developer
               </p>
+
+              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-xs text-[#777]">
+                <a
+                  href="mailto:aadityasakarkar@gmail.com"
+                  className="inline-flex items-center gap-2 hover:text-white"
+                >
+                  <Mail size={13} />
+                  Email
+                </a>
+
+                <a
+                  href="https://github.com/Asakarkar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-white"
+                >
+                  <Github size={13} />
+                  GitHub
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/aditya-sakarkar-a95b1b317/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-white"
+                >
+                  <Linkedin size={13} />
+                  LinkedIn
+                </a>
+              </div>
             </div>
 
             <a
               href="/Aditya_Sakarkar_Resume.pdf"
-              download
-              className="magnetic-btn text-xs self-start md:self-auto flex items-center gap-2"
+              download="Aditya_Sakarkar_Resume.pdf"
+              className="magnetic-btn inline-flex items-center gap-3 self-start text-xs md:self-auto"
               data-cursor-hover
             >
-              <Download size={12} />
-              <span>Download PDF</span>
+              <Download size={14} />
+              Download PDF
             </a>
           </div>
-        </div>
+        </header>
 
-        {/* Resume Content */}
-        <div className="px-6 md:px-12 py-12 max-w-4xl">
-          {/* Objective */}
-          <section className="mb-12">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[#444] mb-4 border-b border-[#1F1F1F] pb-2">
-              Objective
-            </h2>
-            <p className="text-sm text-[#888] leading-relaxed">
-              Seeking software engineering internships at product-first companies.
-              Passionate about building digital experiences that combine design
-              excellence with engineering rigor. I believe software should feel
-              invisible — it should just work, beautifully.
+        {/* CONTENT */}
+        <div className="mx-auto max-w-6xl px-6 py-14 md:px-12 lg:px-20">
+
+          {/* SUMMARY */}
+          <section className="resume-animate mb-16">
+            <SectionTitle number="01" title="PROFILE" />
+
+            <p className="max-w-3xl text-sm leading-8 text-[#999] md:text-base">
+              Third-year B.Tech student pursuing software engineering
+              opportunities. Skilled in Data Structures & Algorithms,
+              OOP, REST APIs, React, Node.js, TypeScript, Python, SQL,
+              and MongoDB. Strong problem-solver with experience in
+              debugging, clean code, backend architecture, and building
+              scalable full-stack applications.
             </p>
           </section>
 
-          {/* Experience */}
-          <section className="mb-12">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[#444] mb-4 border-b border-[#1F1F1F] pb-2">
-              Experience
-            </h2>
-            <div className="space-y-4">
-              {EXPERIENCE.map((exp) => (
-                <div key={exp.title}>
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-1 mb-1">
-                    <h3 className="text-sm font-bold">{exp.title}</h3>
-                    <span className="text-[10px] text-[#444]">{exp.period}</span>
-                  </div>
-                  <div className="text-xs text-[#888] mb-1">{exp.company}</div>
-                  <p className="text-xs text-[#666] leading-relaxed">
-                    {exp.description}
+          {/* ENGINEERING HIGHLIGHTS */}
+          <section className="resume-animate mb-16">
+            <SectionTitle number="02" title="ENGINEERING HIGHLIGHTS" />
+
+            <div className="grid grid-cols-2 gap-px border border-[#222] bg-[#222] md:grid-cols-4">
+              {HIGHLIGHTS.map((item) => (
+                <div
+                  key={item.label}
+                  className="bg-[#0A0A0A] p-5 transition-colors hover:bg-[#111]"
+                >
+                  <h3 className="text-2xl font-bold tracking-tight text-[#FF4D00] md:text-3xl">
+                    {item.value}
+                  </h3>
+
+                  <p className="mt-2 text-xs font-semibold text-white">
+                    {item.label}
+                  </p>
+
+                  <p className="mt-1 text-[10px] text-[#666]">
+                    {item.description}
                   </p>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Education */}
-          <section className="mb-12">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[#444] mb-4 border-b border-[#1F1F1F] pb-2">
-              Education
-            </h2>
-            <div className="space-y-4">
-              {EDUCATION.map((edu) => (
-                <div key={edu.degree}>
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-1 mb-1">
-                    <h3 className="text-sm font-bold">{edu.degree}</h3>
-                    <span className="text-[10px] text-[#444]">{edu.period}</span>
+          {/* EDUCATION */}
+          <section className="resume-animate mb-16">
+            <SectionTitle number="03" title="EDUCATION" />
+
+            {EDUCATION.map((edu) => (
+              <div key={edu.degree} className="border-l border-[#FF4D00] pl-5">
+                <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold">
+                      {edu.degree}
+                    </h3>
+
+                    <p className="mt-1 text-sm text-[#FF4D00]">
+                      {edu.field}
+                    </p>
+
+                    <p className="mt-3 text-sm text-[#999]">
+                      {edu.institution}
+                    </p>
+
+                    <p className="mt-1 text-xs text-[#555]">
+                      {edu.location}
+                    </p>
                   </div>
-                  <div className="text-xs text-[#888] mb-1">{edu.institution}</div>
-                  <p className="text-xs text-[#666] leading-relaxed">
-                    {edu.description}
-                  </p>
+
+                  <span className="text-[10px] tracking-wider text-[#666]">
+                    {edu.period}
+                  </span>
                 </div>
+
+                <p className="mt-4 max-w-2xl text-xs leading-7 text-[#777]">
+                  {edu.description}
+                </p>
+              </div>
+            ))}
+          </section>
+
+          {/* PROJECTS */}
+          <section className="resume-animate mb-16">
+            <SectionTitle number="04" title="SELECTED PROJECTS" />
+
+            <div className="space-y-8">
+              {PROJECTS.map((project, index) => (
+                <article
+                  key={project.id}
+                  className="group border-b border-[#222] pb-8 last:border-0"
+                >
+                  <div className="mb-4 flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                    <div>
+                      <span className="text-[10px] tracking-[0.2em] text-[#FF4D00]">
+                        PROJECT / 0{index + 1}
+                      </span>
+
+                      <h3 className="mt-2 text-xl font-bold tracking-tight transition-colors group-hover:text-[#FF4D00]">
+                        {project.title}
+                      </h3>
+
+                      <p className="mt-2 max-w-2xl text-xs leading-6 text-[#888]">
+                        {project.hook}
+                      </p>
+                    </div>
+
+                    <span className="text-[10px] text-[#555]">
+                      {project.duration}
+                    </span>
+                  </div>
+
+                  <p className="max-w-3xl text-xs leading-7 text-[#777]">
+                    {project.solution}
+                  </p>
+
+                  {/* Metrics */}
+                  <div className="my-5 flex flex-wrap gap-5">
+                    {project.metrics.map((metric) => (
+                      <div key={metric.label}>
+                        <p className="text-base font-bold text-white">
+                          {metric.value}
+                        </p>
+
+                        <p className="mt-1 text-[9px] uppercase tracking-wider text-[#666]">
+                          {metric.label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Technology stack */}
+                  <div className="mb-5 flex flex-wrap gap-2">
+                    {project.stack.map((skill) => (
+                      <span
+                        key={skill}
+                        className="border border-[#292929] px-2 py-1 text-[9px] text-[#999]"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Project links */}
+                  <div className="flex flex-wrap items-center gap-4 text-[10px]">
+                    {project.githubUrl && project.githubUrl !== '#' && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-[#999] transition-colors hover:text-[#FF4D00]"
+                      >
+                        <Github size={12} />
+                        VIEW SOURCE
+                        <ExternalLink size={10} />
+                      </a>
+                    )}
+
+                    {project.liveUrl && project.liveUrl !== '#' && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-[#999] transition-colors hover:text-[#FF4D00]"
+                      >
+                        <Globe size={12} />
+                        LIVE PROJECT
+                        <ExternalLink size={10} />
+                      </a>
+                    )}
+                  </div>
+                </article>
               ))}
             </div>
           </section>
 
-          {/* Skills */}
-          <section className="mb-12">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[#444] mb-4 border-b border-[#1F1F1F] pb-2">
-              Skills
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* SKILLS */}
+          <section className="resume-animate mb-16">
+            <SectionTitle number="05" title="TECHNICAL SKILLS" />
+
+            <div className="grid gap-8 sm:grid-cols-2">
               {Object.entries(SKILLS).map(([category, skills]) => (
                 <div key={category}>
-                  <h3 className="text-[10px] font-bold uppercase tracking-wider text-[#888] mb-2">
+                  <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#FF4D00]">
                     {category}
                   </h3>
+
                   <div className="flex flex-wrap gap-2">
                     {skills.map((skill) => (
                       <span
                         key={skill}
-                        className="px-2 py-1 text-[10px] border border-[#1F1F1F] text-[#888]"
+                        className="border border-[#252525] px-3 py-2 text-[10px] text-[#999] transition-colors hover:border-[#FF4D00] hover:text-white"
                       >
                         {skill}
                       </span>
@@ -187,91 +414,152 @@ export default function ResumePage() {
             </div>
           </section>
 
-          {/* Projects */}
-          <section className="mb-12">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[#444] mb-4 border-b border-[#1F1F1F] pb-2">
-              Projects
-            </h2>
-            <div className="space-y-4">
-              {PROJECTS.map((project) => (
-                <div key={project.name}>
-                  <h3 className="text-sm font-bold mb-1">{project.name}</h3>
-                  <p className="text-xs text-[#888] mb-1">
-                    {project.description}
-                  </p>
-                  <span className="text-[10px] text-[#444]">{project.tech}</span>
+          {/* CORE STRENGTHS */}
+          <section className="resume-animate mb-16">
+            <SectionTitle number="06" title="ENGINEERING PRACTICES" />
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                'Unit & Integration Testing',
+                'REST API Design',
+                'Database Design & Optimization',
+                'Authentication & Authorization',
+                'Debugging & Problem Solving',
+                'Agile / Scrum Collaboration',
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-3 border-b border-[#222] py-3 text-xs text-[#999]"
+                >
+                  <span className="h-1.5 w-1.5 bg-[#FF4D00]" />
+                  {item}
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Achievements */}
-          <section className="mb-12">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[#444] mb-4 border-b border-[#1F1F1F] pb-2">
-              Achievements
-            </h2>
-            <ul className="space-y-2 text-xs text-[#888]">
-              <li className="flex items-start gap-2">
-                <span className="text-[#444] mt-1">&bull;</span>
-                <span>Built and deployed 4 full-stack applications with measurable user impact</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#444] mt-1">&bull;</span>
-                <span>Active open-source contributor with 500+ GitHub contributions</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#444] mt-1">&bull;</span>
-                <span>Consistently write technical articles sharing learnings from projects</span>
-              </li>
-            </ul>
-          </section>
+          {/* CONTACT */}
+          <section className="resume-animate border-t border-[#252525] pt-10">
+            <span className="text-[10px] tracking-[0.3em] text-[#FF4D00]">
+              LET'S CONNECT
+            </span>
 
-          {/* Links */}
-          <section>
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[#444] mb-4 border-b border-[#1F1F1F] pb-2">
-              Links
+            <h2 className="mt-4 text-3xl font-bold tracking-tighter md:text-5xl">
+              BUILD SOMETHING
+              <br />
+              <span className="text-[#FF4D00]">MEANINGFUL.</span>
             </h2>
-            <div className="flex flex-wrap gap-4">
+
+            <p className="mt-4 text-xs text-[#777]">
+              Open to software engineering internships and opportunities
+              to build impactful products.
+            </p>
+
+            <div className="mt-7 flex flex-wrap gap-5">
+              <a
+                href="mailto:aadityasakarkar@gmail.com"
+                className="text-xs text-white underline underline-offset-4 decoration-[#FF4D00] hover:text-[#FF4D00]"
+              >
+                EMAIL ME
+              </a>
+
               <a
                 href="https://github.com/Asakarkar"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-[#888] hover:text-white transition-colors underline underline-offset-4 decoration-[#1F1F1F]"
-                data-cursor-hover
+                className="text-xs text-white underline underline-offset-4 decoration-[#FF4D00] hover:text-[#FF4D00]"
               >
-                <ExternalLink size={10} />
-                GitHub
+                GITHUB
               </a>
+
               <a
                 href="https://www.linkedin.com/in/aditya-sakarkar-a95b1b317/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-[#888] hover:text-white transition-colors underline underline-offset-4 decoration-[#1F1F1F]"
-                data-cursor-hover
+                className="text-xs text-white underline underline-offset-4 decoration-[#FF4D00] hover:text-[#FF4D00]"
               >
-                <ExternalLink size={10} />
-                LinkedIn
+                LINKEDIN
               </a>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-1 text-xs text-[#888] hover:text-white transition-colors underline underline-offset-4 decoration-[#1F1F1F]"
-                data-cursor-hover
+
+              <a
+                href="https://adityasakarkar.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-white underline underline-offset-4 decoration-[#FF4D00] hover:text-[#FF4D00]"
               >
-                <ExternalLink size={10} />
-                Contact
-              </Link>
+                PORTFOLIO
+              </a>
             </div>
           </section>
         </div>
+
+        {/* FOOTER */}
+        <footer className="border-t border-[#1F1F1F] px-6 py-7 md:px-12 lg:px-20">
+          <div className="flex flex-col justify-between gap-3 text-[9px] tracking-[0.15em] text-[#555] sm:flex-row">
+            <span>ADITYA SAKARKAR © 2026</span>
+            <span>DESIGNED & BUILT WITH PURPOSE.</span>
+          </div>
+        </footer>
       </main>
-      {/* Print styles */}
+
+      {/* PRINT STYLES */}
       <style>{`
         @media print {
-          nav, .crt-overlay { display: none !important; }
-          body { background: white !important; color: black !important; }
-          main { padding-top: 0 !important; }
+          nav,
+          .crt-overlay,
+          a[href="/"],
+          button {
+            display: none !important;
+          }
+
+          body {
+            background: white !important;
+            color: black !important;
+          }
+
+          main {
+            padding-top: 0 !important;
+          }
+
+          * {
+            color: black !important;
+            border-color: #ddd !important;
+            box-shadow: none !important;
+          }
+
+          .resume-animate {
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .resume-animate {
+            opacity: 1 !important;
+            transform: none !important;
+          }
         }
       `}</style>
+    </div>
+  );
+}
+
+function SectionTitle({
+  number,
+  title,
+}: {
+  number: string;
+  title: string;
+}) {
+  return (
+    <div className="mb-7 flex items-center gap-4 border-b border-[#252525] pb-3">
+      <span className="font-mono text-[10px] text-[#FF4D00]">
+        {number}
+      </span>
+
+      <h2 className="text-xs font-bold tracking-[0.2em] text-white">
+        {title}
+      </h2>
     </div>
   );
 }
