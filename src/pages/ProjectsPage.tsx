@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProjectImage from '../components/ProjectImage';
+import ProjectActionButtons from '../components/ProjectActionButtons';
 import { PROJECTS } from '../data/projects';
 
 export default function ProjectsPage() {
@@ -78,12 +79,22 @@ export default function ProjectsPage() {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
                 {/* Image */}
-                <div className="aspect-video bg-[#080808] border border-[#1F1F1F] overflow-hidden">
+                <div
+                  className="group relative aspect-video overflow-hidden border border-[#1F1F1F] bg-[#080808]"
+                  data-cursor-hover
+                >
                   <ProjectImage
                     src={project.image}
                     title={project.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                  <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center gap-4 bg-black/70 opacity-0 transition-opacity duration-300 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100">
+                    <ProjectActionButtons
+                      projectTitle={project.title}
+                      liveUrl={project.liveUrl}
+                      githubUrl={project.githubUrl}
+                    />
+                  </div>
                 </div>
 
                 {/* Content */}
@@ -152,35 +163,6 @@ export default function ProjectsPage() {
                     <span>{project.role}</span>
                   </div>
 
-                  {/* Links */}
-                  {(project.liveUrl !== '#' || project.githubUrl !== '#') && (
-                    <div className="flex items-center gap-4">
-                      {project.liveUrl !== '#' && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="magnetic-btn text-xs"
-                          data-cursor-hover
-                        >
-                          <ExternalLink size={12} />
-                          <span>Live Demo</span>
-                        </a>
-                      )}
-                      {project.githubUrl !== '#' && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-xs text-[#888] hover:text-white transition-colors underline underline-offset-4 decoration-[#1F1F1F]"
-                          data-cursor-hover
-                        >
-                          <Github size={12} />
-                          <span>GitHub</span>
-                        </a>
-                      )}
-                    </div>
-                  )}
                 </div>
               </div>
 
